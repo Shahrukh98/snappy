@@ -1,0 +1,23 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE IF NOT EXISTS users (
+    user_id UUID PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS segments (
+    segment_id UUID PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
+    segment_name VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS segment_membership (
+    membership_id UUID PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
+    user_id UUID,
+    segment_id UUID,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (segment_id) REFERENCES segments(segment_id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
