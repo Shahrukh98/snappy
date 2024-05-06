@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS segments (
-    segment_id UUID PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
+    segment_id VARCHAR(50) PRIMARY KEY NOT NULL,
     segment_name VARCHAR(50) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS segments (
 CREATE TABLE IF NOT EXISTS segment_membership (
     membership_id UUID PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
     user_id UUID,
-    segment_id UUID,
+    segment_id VARCHAR(50),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (segment_id) REFERENCES segments(segment_id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
